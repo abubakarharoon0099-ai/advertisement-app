@@ -3,7 +3,6 @@ export type Seller = {
   type: string
   contact: string
 }
-
 export type Ad = {
   id: number
   title: string

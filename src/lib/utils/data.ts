@@ -1,7 +1,6 @@
 import { promises as fs } from "fs"
 import path from "path"
 import type { Ad } from "@/lib/types/ad"
-
 export const readAllAds = async (): Promise<Ad[]> => {
   try {
     const p = path.join(process.cwd(), "public", "ads_data.json")

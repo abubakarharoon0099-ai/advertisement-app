@@ -1,7 +1,8 @@
 "use client"
 import { useInfiniteAds } from "@/hooks/useInfiniteAds"
-import AdCard from "@/components/AdCard"
 import type { Ad } from "@/lib/types/ad"
+import AdCard from "@/components/AdCard"
+import Spinner from "@/components/Spinner"
 export default function InfiniteClient({
   initialnextcursor,
   initialhasmore,
@@ -22,11 +23,15 @@ export default function InfiniteClient({
         ))}
       </section>
       <div ref={ref} className="text-center text-gray-500 py-6">
-        {state.hasmore   
-          ? state.loading
-            ? "Loading..."
-            : "Scroll to load more"
-          : "No more ads"}
+      {state.hasmore ? (
+          state.loading ? (
+            <Spinner />
+          ) : (
+            "Scroll to load more"
+          )
+        ) : (
+          "No more ads"
+        )}
       </div>
     </>
   )

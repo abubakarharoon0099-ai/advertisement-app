@@ -1,5 +1,4 @@
 import Link from "next/link"
-
 export default async function Home() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 px-4">
@@ -13,10 +12,7 @@ export default async function Home() {
         <div className="mt-8">
           <Link
             href="/ads"
-            className="inline-block px-8 py-4 text-lg font-semibold text-white bg-black/40 
-                       rounded-2xl shadow-lg backdrop-blur-md transition-all 
-                       hover:bg-black/60 hover:scale-105"
-          >
+            className="inline-block px-8 py-4 text-lg font-semibold text-white bg-black/40 rounded-2xl shadow-lg backdrop-blur-md transition-all  hover:bg-black/60 hover:scale-105">
             Open Ads
           </Link>
         </div>

@@ -61,7 +61,6 @@ export const useInfiniteAds = <T,>(
       dispatch({ type: "error" })
     }
   }, [state.hasmore, state.loading, state.cursor, limit])
-
   useEffect(() => {
     try {
       const node = ref.current
@@ -76,6 +75,5 @@ export const useInfiniteAds = <T,>(
       return () => io.disconnect()
     } catch {}
   }, [load])
-
   return { ref, state, load }
 }

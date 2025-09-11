@@ -1,7 +1,5 @@
 import AdsSection from "@/components/AdsSection"
-
 export const dynamic = "force-dynamic"
-
 export default async function AdsPage() {
   return (
     <main className="max-w-6xl mx-auto p-6">
