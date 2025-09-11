@@ -5,7 +5,7 @@ export default async function Home() {
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 px-4">
       <div className="text-center max-w-2xl">
         <h1 className="text-5xl md:text-6xl font-extrabold text-white drop-shadow-lg">
-          🚀 Advertisements
+           Advertisements
         </h1>
         <p className="mt-6 text-lg md:text-xl text-white/90">
           Discover and explore all advertisements in one place.
