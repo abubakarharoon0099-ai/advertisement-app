@@ -21,7 +21,7 @@ const InfiniteClient: FC<InfiniteClientProps> = ({
     initialCursor,
     initialHasMore
   );
-  if (!items || items.length === null) {
+  if (!items || items.length === 0) {
     return (
       <p className="text-center text-gray-500 mt-6">
         No ads available
