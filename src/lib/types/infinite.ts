@@ -5,13 +5,7 @@ export interface InfiniteState<T> {
   loading: boolean
   error: boolean
 }
-export const initialState: InfiniteState<any> = {
-  items: [],
-  cursor: 0,
-  hasMore: true,
-  loading: false,
-  error: false,
-}
+
 export type InfiniteAction<T> =
   | { type: "start" }
   | {
