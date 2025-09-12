@@ -1,20 +1,21 @@
 import { NextResponse } from "next/server"
-import { readAllAds } from "@/lib/utils/data"
-import { slicebycursor } from "@/lib/utils/paginate"
+import path from "path"
+import fs from "fs/promises"
 
 export async function GET(req: Request) {
-  try {
-    const url = new URL(req.url)
-    const cursor = Number(url.searchParams.get("cursor") ?? 0)
-    const limit = Number(url.searchParams.get("limit") ?? 20)
-    const ads = await readAllAds()
-    const { page, nextcursor, hasmore } = slicebycursor(
-      ads,
-      isFinite(cursor) ? cursor : 0,
-      isFinite(limit) ? limit : 20
-    )
-    return NextResponse.json({ items: page, nextcursor, hasmore })
-  } catch {
-    return NextResponse.json({ items: [], nextcursor: null, hasMore: false })
-  }
+  const url = new URL(req.url)
+  const cursor = Number(url.searchParams.get("cursor") ?? 0)
+  const limit = Number(url.searchParams.get("limit") ?? 21)
+
+  const p = path.join(process.cwd(), "public", "ads_data.json")
+
+  
+    const raw = await fs.readFile(p, "utf8")
+    const ads = JSON.parse(raw)
+    const page = ads.slice(cursor, cursor + limit)
+    const nextCursor = cursor + limit < ads.length ? cursor + limit : null
+    const hasMore = nextCursor !== null
+                         
+    return NextResponse.json({ items: page, nextCursor, hasMore })
+  
 }

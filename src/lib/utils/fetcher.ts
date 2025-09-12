@@ -1,12 +1,11 @@
-export const getAds = async (cursor: number | null, limit: number) => {
+
+export const fetchAds = async (cursor: number | null, limit: number) => {
   try {
-    const qs = new URLSearchParams()
-    if (cursor !== null) qs.set("cursor", String(cursor))
-    qs.set("limit", String(limit))
-    const r = await fetch(`/api/ads?${qs.toString()}`, { cache: "no-store" })
-    if (!r.ok) throw new Error("bad")
-    return await r.json()
-  } catch {
-    return { items: [], nextcursor: null, hasMore: false }
+    const res = await fetch(`/api/ads?cursor=${cursor ?? 0}&limit=${limit}`)
+    const data = await res.json()
+    return data
+  } catch (error) {
+    console.error(error)
+    return { items: [], nextCursor: null, hasMore: false }
   }
 }
