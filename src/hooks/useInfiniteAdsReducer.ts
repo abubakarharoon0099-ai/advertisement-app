@@ -1,14 +1,17 @@
-
-
 import { InfiniteState, InfiniteAction } from "@/lib/types/infinite"
-export const initialState: InfiniteState<any> = {
+
+export const initialState: InfiniteState<never> = {
   items: [],
   cursor: 0,
   hasMore: true,
   loading: false,
   error: false,
 }
-export const reducer = (state: InfiniteState<any>, action: InfiniteAction<any>): InfiniteState<any> => {
+
+export function reducer<T>(
+  state: InfiniteState<T>,
+  action: InfiniteAction<T>
+): InfiniteState<T> {
   switch (action.type) {
     case "start":
       return { ...state, loading: true, error: false }
@@ -25,4 +28,4 @@ export const reducer = (state: InfiniteState<any>, action: InfiniteAction<any>):
     default:
       return state
   }
-} 
+}

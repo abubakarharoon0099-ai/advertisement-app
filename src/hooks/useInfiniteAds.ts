@@ -1,9 +1,21 @@
 import { useReducer, useRef, useEffect, useCallback } from "react"
 import { fetchAds } from "@/lib/utils/fetcher"
-import { initialState, reducer } from "./useInfiniteAdsReducer"  
-export const useInfiniteAds = <T>(initialCursor: number | null, initialHasMore: boolean, limit: number) => {
-  const [state, dispatch] = useReducer(reducer, { ...initialState, cursor: initialCursor, hasMore: initialHasMore })
+import { initialState, reducer } from "./useInfiniteAdsReducer"
+import { InfiniteState } from "@/lib/types/infinite"
+
+export const useInfiniteAds = <T>(
+  initialCursor: number | null,
+  initialHasMore: boolean,
+  limit: number
+) => {
+  const [state, dispatch] = useReducer(reducer<T>, {
+    ...initialState,
+    cursor: initialCursor,
+    hasMore: initialHasMore,
+  } as InfiniteState<T>)
+
   const ref = useRef<HTMLDivElement | null>(null)
+
   const load = useCallback(async () => {
     try {
       if (!state.hasMore || state.loading) return
@@ -12,7 +24,7 @@ export const useInfiniteAds = <T>(initialCursor: number | null, initialHasMore: 
       dispatch({
         type: "success",
         payload: {
-          items: data.items,
+          items: data.items as T[],
           nextCursor: data.nextCursor,
           hasMore: data.hasMore,
         },
