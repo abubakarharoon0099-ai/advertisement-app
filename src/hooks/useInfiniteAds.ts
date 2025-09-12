@@ -1,51 +1,76 @@
-import { useReducer, useRef, useEffect, useCallback } from "react"
-import { fetchAds } from "@/lib/utils/fetcher"
-import { initialState, reducer } from "./useInfiniteAdsReducer"
-import { InfiniteState } from "@/lib/types/infinite"
 
-export const useInfiniteAds = <T>(
-  initialCursor: number | null,
-  initialHasMore: boolean,
-  limit: number
+import { useReducer, useEffect, useRef } from "react";
+import { fetchAdsClient } from "@/lib/utils/fetcher";
+
+
+
+import { Ad } from "@/lib/types/ad";
+import { State, Action } from "@/lib/types/infinite";
+export const useInfiniteAds = (
+  initialItems: Ad[] = [],
+  initialCursor: number | null = 0,
+  initialHasMore: boolean = true
 ) => {
-  const [state, dispatch] = useReducer(reducer<T>, {
-    ...initialState,
+  const [state, dispatch] = useReducer(reducer, {
+    items: initialItems,
     cursor: initialCursor,
     hasMore: initialHasMore,
-  } as InfiniteState<T>)
-
-  const ref = useRef<HTMLDivElement | null>(null)
-
-  const load = useCallback(async () => {
+    loading: false,
+  });
+  const ref = useRef<HTMLDivElement | null>(null);
+  const loadMore = async () => {
+    if (!state.hasMore || state.loading) return;
+    dispatch({ type: "LOAD_START" });
     try {
-      if (!state.hasMore || state.loading) return
-      dispatch({ type: "start" })
-      const data = await fetchAds(state.cursor, limit)
+     const data = await fetchAdsClient(state.cursor, 21);
       dispatch({
-        type: "success",
+        type: "LOAD_SUCCESS",
         payload: {
-          items: data.items as T[],
-          nextCursor: data.nextCursor,
-          hasMore: data.hasMore,
+          items: data?.items || [],
+          cursor: data?.nextCursor ?? null,
+          hasMore: data?.hasMore ?? false,
         },
-      })
-    } catch {
-      dispatch({ type: "error" })
+      });
+    } catch (err) {
+      console.error("fetchAds error:", err);
+      dispatch({ type: "LOAD_FAILURE" });
     }
-  }, [state.hasMore, state.loading, state.cursor, limit])
-
+  };
   useEffect(() => {
-    const node = ref.current
-    if (!node) return
-    const io = new IntersectionObserver(
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0]?.isIntersecting) load()
+        if (entries[0].isIntersecting) {
+          loadMore();
+        }
       },
       { rootMargin: "400px" }
-    )
-    io.observe(node)
-    return () => io.disconnect()
-  }, [load])
+    );
 
-  return { ref, state, load }
-}
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [state.cursor, state.hasMore, state.loading]);
+
+  return { ...state, ref, loadMore };
+};
+
+export const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case "LOAD_START":
+      return { ...state, loading: true };
+    case "LOAD_SUCCESS":
+      return {
+        items: [...state.items, ...action.payload.items],
+        cursor: action.payload.cursor,
+        hasMore: action.payload.hasMore,
+        loading: false,
+      };
+    case "LOAD_FAILURE":
+      return { ...state, loading: false };
+    default:
+      return state;
+  }
+};

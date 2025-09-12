@@ -1,31 +1,36 @@
-import { InfiniteState, InfiniteAction } from "@/lib/types/infinite"
+// hooks/useInfiniteAdsReducer.ts
+import { useReducer } from "react";
+import { State, Action } from "@/lib/types/infinite";
 
-export const initialState: InfiniteState<never> = {
+// Initial state for infinite scroll
+const initialState: State = {
   items: [],
   cursor: 0,
   hasMore: true,
   loading: false,
-  error: false,
-}
+};
 
-export function reducer<T>(
-  state: InfiniteState<T>,
-  action: InfiniteAction<T>
-): InfiniteState<T> {
+// Reducer function
+export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "start":
-      return { ...state, loading: true, error: false }
-    case "success":
+    case "LOAD_START":
+      return { ...state, loading: true };
+    case "LOAD_SUCCESS":
       return {
-        items: [...state.items, ...action.payload.items],
-        cursor: action.payload.nextCursor,
-        hasMore: action.payload.hasMore,
+        ...state,
         loading: false,
-        error: false,
-      }
-    case "error":
-      return { ...state, loading: false, error: true }
+        items: [...state.items, ...action.payload.items],
+        cursor: action.payload.cursor,
+        hasMore: action.payload.hasMore,
+      };
+    case "LOAD_FAILURE":
+      return { ...state, loading: false };
     default:
-      return state
+      return state;
   }
-}
+};
+
+// Custom hook that returns [state, dispatch] tuple
+export const useInfiniteAdsReducer = () => {
+  return useReducer(reducer, initialState);
+};
