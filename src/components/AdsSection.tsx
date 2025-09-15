@@ -1,9 +1,7 @@
 import { fetchAdsServer } from "@/lib/utils/fetcher";
 import InfiniteClient from "@/components/InfiniteClient";
-
 const AdsSection = async ({ limit }: { limit: number }) => {
   const { items, nextCursor, hasMore } = await fetchAdsServer(0, limit);
-
   return (
     <InfiniteClient
       initialItems={items}
@@ -12,5 +10,4 @@ const AdsSection = async ({ limit }: { limit: number }) => {
     />
   );
 };
-
 export default AdsSection;

@@ -1,13 +1,10 @@
 "use client";
 import { FC } from "react";
-import { Ad } from "@/lib/types/ad";
 import { useInfiniteAds } from "@/hooks/useInfiniteAds";
 import { InfiniteClientProps } from "@/lib/types/infinite";
 import AdCard from "@/components/AdCard";
 import Spinner from "@/components/Spinner";
 import NoAds from "@/components/NoAds";
-
-
 const InfiniteClient: FC<InfiniteClientProps> = ({
   initialItems,
   initialCursor,
