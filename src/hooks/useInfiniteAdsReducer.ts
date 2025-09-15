@@ -1,6 +1,5 @@
 import { useReducer } from "react";
 import { State, Action } from "@/lib/types/infinite";
-
 const initialState: State = {
   items: [],
   cursor: 0,
@@ -25,7 +24,6 @@ export const reducer = (state: State, action: Action): State => {
       return state;
   }
 };
-
 export const useInfiniteAdsReducer = () => {
   return useReducer(reducer, initialState);
 };

@@ -1,11 +1,9 @@
 "use client";
-
 import { FC } from "react";
 import AdCard from "@/components/AdCard";
 import Spinner from "@/components/Spinner";
 import { Ad } from "@/lib/types/ad";
 import { useInfiniteAds } from "@/hooks/useInfiniteAds";
-
 interface InfiniteClientProps {
   initialItems: Ad[];
   initialCursor: number | null;
@@ -33,12 +31,10 @@ const InfiniteClient: FC<InfiniteClientProps> = ({
       {items.map((ad) => (
         <AdCard key={ad.id} ad={ad} />
       ))}
-
       <div ref={ref} className="col-span-full text-center py-6">
         {loading ? <Spinner /> : !hasMore ? "No more ads" : null}
       </div>
     </section>
   );
 };
-
 export default InfiniteClient;

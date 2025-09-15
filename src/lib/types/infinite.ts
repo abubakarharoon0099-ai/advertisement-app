@@ -1,18 +1,14 @@
-// lib/types/infinite.ts
 import { Ad } from "./ad";
-
 export interface State {
   items: Ad[];
   cursor: number | null;
   hasMore: boolean;
   loading: boolean;
 }
-
 export type Action =
   | { type: "LOAD_START" }
   | { type: "LOAD_SUCCESS"; payload: { items: Ad[]; cursor: number | null; hasMore: boolean } }
   | { type: "LOAD_FAILURE" };
-
 export interface InfiniteState<T> {
   items: T[]
   cursor: number | null
@@ -20,7 +16,6 @@ export interface InfiniteState<T> {
   loading: boolean
   error: boolean
 }
-
 export type InfiniteAction<T> =
   | { type: "start" }
   | {

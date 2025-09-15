@@ -1,9 +1,6 @@
 
 import { useReducer, useEffect, useRef } from "react";
 import { fetchAdsClient } from "@/lib/utils/fetcher";
-
-
-
 import { Ad } from "@/lib/types/ad";
 import { State, Action } from "@/lib/types/infinite";
 export const useInfiniteAds = (
@@ -48,15 +45,12 @@ export const useInfiniteAds = (
       },
       { rootMargin: "400px" }
     );
-
     observer.observe(node);
-
     return () => observer.disconnect();
   }, [state.cursor, state.hasMore, state.loading]);
 
   return { ...state, ref, loadMore };
 };
-
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "LOAD_START":
