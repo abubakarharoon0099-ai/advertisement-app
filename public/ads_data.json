@@ -9998,5 +9998,63 @@
       "https://picsum.photos/id/1041/600/400"
     ],
     "condition": "Used"
+  },
+   {
+    "id": 501,
+    "title": "Furniture Item 498",
+    "description": "This is a description for Furniture item 498.",
+    "price": 239283,
+    "currency": "PKR",
+    "category": "Furniture",
+    "location": "Islamabad, Pakistan",
+    "posted_date": "2025-08-15",
+    "seller": {
+      "name": "Sara Ali",
+      "type": "Individual",
+      "contact": "+92-311-2527125"
+    },
+    "images": [
+      "https://picsum.photos/id/1031/600/400"
+    ],
+    "condition": "New"
+  },
+  {
+    "id": 502,
+    "title": "Furniture Item 499",
+    "description": "This is a description for Furniture item 499.",
+    "price": 697024,
+    "currency": "PKR",
+    "category": "Furniture",
+    "location": "Rawalpindi, Pakistan",
+    "posted_date": "2025-07-28",
+    "seller": {
+      "name": "Ali Khan",
+      "type": "Dealer",
+      "contact": "+92-300-6469728"
+    },
+    "images": [
+      "https://picsum.photos/id/1032/600/400",
+      "https://picsum.photos/id/1030/600/400"
+    ],
+    "condition": "Used"
+  },
+  {
+    "id": 503,
+    "title": "Properties Item 500",
+    "description": "This is a description for Properties item 500.",
+    "price": 2938472,
+    "currency": "PKR",
+    "category": "Properties",
+    "location": "Rawalpindi, Pakistan",
+    "posted_date": "2025-07-15",
+    "seller": {
+      "name": "Omar Siddiqui",
+      "type": "Dealer",
+      "contact": "+92-311-8628572"
+    },
+    "images": [
+      "https://picsum.photos/id/1041/600/400"
+    ],
+    "condition": "Used"
   }
 ]

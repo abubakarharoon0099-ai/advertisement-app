@@ -1,4 +1,3 @@
-
 import { useReducer, useEffect, useRef } from "react";
 import { fetchAdsClient } from "@/lib/utils/fetcher";
 import { Ad } from "@/lib/types/ad";
