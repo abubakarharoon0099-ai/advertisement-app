@@ -30,5 +30,5 @@ const InfiniteClient: FC<InfiniteClientProps> = ({
       </div>
     </section>
   );
-};
+};  
 export default InfiniteClient;
