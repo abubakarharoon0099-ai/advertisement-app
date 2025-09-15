@@ -1,13 +1,16 @@
-import type { Ad } from "@/lib/types/ad"
-import { money } from "@/lib/utils/format"
-export default function AdCard({ ad }: { ad: Ad }) {
+import type { Ad } from "@/lib/types/ad";
+import { money } from "@/lib/utils/format";
+const AdCard = ({ ad }: { ad: Ad }) => {
   return (
     <article className="group relative border rounded-2xl shadow-sm overflow-hidden bg-white hover:shadow-lg transition-shadow duration-300">
       {ad.images?.length ? (
         <img
-          src={ad.images[0]}
+          src={ad.images?.[0] || "/default.png"}
           alt={ad.title}
-          className="w-full h-52 object-cover transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-48 object-cover"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = "/default.png";
+          }}
         />
       ) : (
         <div className="w-full h-52 flex items-center justify-center bg-gray-100 text-gray-500 text-sm">
@@ -29,5 +32,6 @@ export default function AdCard({ ad }: { ad: Ad }) {
         </p>
       </div>
     </article>
-  )
-}
+  );
+};
+export default AdCard;

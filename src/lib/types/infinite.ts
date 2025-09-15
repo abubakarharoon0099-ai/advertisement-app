@@ -5,6 +5,11 @@ export interface State {
   hasMore: boolean;
   loading: boolean;
 }
+export interface InfiniteClientProps {
+  initialItems: Ad[];
+  initialCursor: number | null;
+  hasMore: boolean;
+}
 export type Action =
   | { type: "LOAD_START" }
   | { type: "LOAD_SUCCESS"; payload: { items: Ad[]; cursor: number | null; hasMore: boolean } }
